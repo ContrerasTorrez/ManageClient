@@ -55,6 +55,7 @@ public class FormClient1 extends javax.swing.JFrame {
 
         jLabel2.setText("Tipo NIF");
 
+        rb_rnc.setSelected(true);
         rb_rnc.setText("RNC");
 
         rb_pass.setText("Pass");
@@ -217,12 +218,16 @@ public class FormClient1 extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if(lb_id.getText().equals("NOID")){//Si esto es verdad entonces deberá crear un nuevo cliente
             String tn = "RNC";
-            c = new Client(tf_name.getText(),tn ,tf_nif.getText(),
-    tf_tel.getText(),tf_movil.getText(),java.time.LocalDate.now().toString());
+            if (rb_pass.isSelected() == true){tn = "Pass";}else if(rb_ced.isSelected() == true){tn = "Ced";}
+            long millis = System.currentTimeMillis();  
+            java.sql.Date date=new java.sql.Date(millis);  
+            c = new Client(tf_name.getText(),tn ,tf_nif.getText(),tf_tel.getText(),tf_movil.getText(),date);
             c.insertClient(c);
+        }else{
+            System.out.println("Actualzar el cliente " + lb_id.getText());
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+        
     /**
      * @param args the command line arguments
      */

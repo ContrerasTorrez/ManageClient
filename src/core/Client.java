@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Client extends DatabaseConnection {
 
     int ID;
-    String name;
-    String type_nif;
-    String NIF;
-    String phone;
-    String mobile;
-    Boolean is_validate;
-    Date create_date;
-    String id_address;
+    public String name;
+    public String type_nif;
+    public String NIF;
+    public String phone;
+    public String mobile;
+    public Boolean is_validate;
+    public Date create_date;
+    public String id_address;
     
     // Constructor 0
     public Client(){
@@ -32,19 +32,18 @@ public class Client extends DatabaseConnection {
     
     
     public Boolean insertClient(Client client){
-        String insert = "INSERT INTO CLIENT (C_NAME, C_TYPE_NIF, C_NIF,C_PHONE, C_MOBILE,C_CREATE_DATE, C_ID_ADDRESS) VALUES (" + client.name +
-                "," + client.type_nif +
-                "," + client.NIF +
-                "," + client.phone +
-                "," + client.mobile +
-                "," + client.create_date +
-                "," + client.id_address +
-                ")";
+        String insert = "INSERT INTO CLIENTS (C_NAME, C_TYPE_NIF, C_NIF,C_PHONE, C_MOBILE,C_CREATE_DATE) VALUES ('" + client.name +
+                "','" + client.type_nif +
+                "','" + client.NIF +
+                "','" + client.phone +
+                "','" + client.mobile +
+                "','" + client.create_date +
+                "')";
 
         try {      
-                //GET COONECTION // PREPARED STMT
+                //GET COONECTION : PREPARED STMT : Execute SQL
                 DatabaseConnection.statement().execute(insert);
-
+                System.out.println("insert correcto");
                 return true;
 
             } catch (Exception ex) {
@@ -54,35 +53,33 @@ public class Client extends DatabaseConnection {
     }
 
     public Boolean updateClient(Client client){
-        String update = "UPDATE CLIENT SET " +
-                ", C_NAME=" + client.name +
-                "C_TYPE_NIF=" + client.type_nif +
-                ", C_NIF=" + client.NIF +
-                ", C_PHONE=" + client.phone+
-                ", C_MOBILE=" + client.mobile +
-                ", C_CREATE_DATE=" + client.create_date +
-                ", C_ID_ADDRESS=" + client.id_address +
-                " WHERE ID = " + client.ID ;
+        String update = "UPDATE CLIENTS SET " +
+                ", C_NAME='" + client.name +
+                ", C_TYPE_NIF='" + client.type_nif +
+                ", C_NIF='" + client.NIF +
+                ", C_PHONE='" + client.phone+
+                ", C_MOBILE='" + client.mobile +
+                ", C_CREATE_DATE='" + client.create_date +
+                ", C_ID_ADDRESS='" + client.id_address +
+                " WHERE ID = '" + client.ID ;
         return true;
     }
 
     public Boolean deleteClient(int ID){
-        String delete = "DELETE CLIENT WHERE ID = " + ID;
+        String delete = "DELETE CLIENTS WHERE ID = " + ID;
         return true;
     }
 
     public ArrayList selectClient(){
-            //ADD COLUMNS TO TABLE MODEL
         ArrayList <Client> clients = null;
         
-        //SQL STATEMENT
-        String select = "SELECT * FROM CLIENT";
+        String select = "SELECT * FROM CLIENTS";
         
         try {
             ResultSet rs = DatabaseConnection.statement().executeQuery(select);
-            //LOOP THRU GETTING ALL VALUES
+
             while (rs.next()) {
-                //GET VALUES
+
                 Client x = new Client();
                 x.ID = Integer.parseInt(rs.getString(1));
                 x.name = rs.getString(2);
@@ -90,7 +87,7 @@ public class Client extends DatabaseConnection {
                 x.mobile = rs.getString(4);
                 clients.add(x);
             }
-            
+            System.out.println("Select Exictoso y retorno de ArrayList<Client>");
            return clients; 
         } catch (Exception ex) {
             ex.printStackTrace();

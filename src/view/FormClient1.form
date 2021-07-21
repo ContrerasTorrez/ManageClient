@@ -195,6 +195,7 @@
         </Component>
         <Component class="javax.swing.JRadioButton" name="rb_rnc">
           <Properties>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="RNC"/>
           </Properties>
         </Component>

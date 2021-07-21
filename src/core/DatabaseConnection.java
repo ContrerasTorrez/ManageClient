@@ -6,14 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnection {
-    static final String DB_URL = "jdbc:mysql://localhost/";
-    static final String USER = "root";
+        static final String USER = "root";
     static final String PASS = "rosebud";
+    static final String DB_A = "jdbc:mysql://localhost/EMPLOYEE?user=root&password=rosebud";
+
 
     public static Connection connection(){
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DriverManager.getConnection(DB_A);
             // Do something with the Connection
         } catch (SQLException ex) {
             // handle any errors
