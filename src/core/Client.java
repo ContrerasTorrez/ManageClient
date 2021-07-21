@@ -1,7 +1,9 @@
 package core;
 
 import java.util.Date;
-
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 public class Client extends DatabaseConnection {
 
     int ID;
@@ -24,8 +26,18 @@ public class Client extends DatabaseConnection {
                 "," + client.id_address +
                 ")";
 
-        return true;
+        try {      
+                //GET COONECTION // PREPARED STMT
+                DatabaseConnection.statement().execute(insert);
+
+                return true;
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return false;
     }
+
     public Boolean updateClient(Client client){
         String update = "UPDATE CLIENT SET " +
                 ", C_NAME=" + client.name +
@@ -44,7 +56,32 @@ public class Client extends DatabaseConnection {
         return true;
     }
 
-    public Client[] selectClient(){
-    return new Client [] {};
+    public ArrayList selectClient(){
+            //ADD COLUMNS TO TABLE MODEL
+        ArrayList <Client> clients = null;
+        
+        //SQL STATEMENT
+        String select = "SELECT * FROM CLIENT";
+        
+        try {
+            ResultSet rs = DatabaseConnection.statement().executeQuery(select);
+            //LOOP THRU GETTING ALL VALUES
+            while (rs.next()) {
+                //GET VALUES
+                Client x = new Client();
+                x.ID = Integer.parseInt(rs.getString(1));
+                x.name = rs.getString(2);
+                x.phone = rs.getString(3);
+                x.mobile = rs.getString(4);
+                clients.add(x);
+            }
+            
+           return clients; 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+
     }
 }

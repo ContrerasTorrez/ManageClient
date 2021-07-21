@@ -10,7 +10,7 @@ public class DatabaseConnection {
     static final String USER = "root";
     static final String PASS = "rosebud";
 
-    public Connection connection(){
+    public static Connection connection(){
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -25,10 +25,10 @@ public class DatabaseConnection {
     }
 
 
-    public Statement statement() {
+    public static Statement statement() {
         Statement stmt = null;
         try {
-            stmt = this.connection().createStatement();
+            stmt = connection().createStatement();
         }catch (SQLException ex){
             System.out.println("statement(): SQLException: " + ex.getMessage());
             System.out.println("statement(): SQLState: " + ex.getSQLState());
