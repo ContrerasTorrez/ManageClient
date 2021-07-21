@@ -15,7 +15,22 @@ public class Client extends DatabaseConnection {
     Boolean is_validate;
     Date create_date;
     String id_address;
-
+    
+    // Constructor 0
+    public Client(){
+        
+    }
+    //Constructor 1
+    public Client(String name,String type_nif,String NIF,String phone,String mobile,Date create_date){
+    this.name = name;
+    this.type_nif = type_nif;
+    this.NIF = NIF;
+    this.phone = phone;
+    this.mobile = mobile;
+    this.create_date = create_date;
+}
+    
+    
     public Boolean insertClient(Client client){
         String insert = "INSERT INTO CLIENT (C_NAME, C_TYPE_NIF, C_NIF,C_PHONE, C_MOBILE,C_CREATE_DATE, C_ID_ADDRESS) VALUES (" + client.name +
                 "," + client.type_nif +
